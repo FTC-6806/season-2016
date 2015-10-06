@@ -56,5 +56,6 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
 
     manager.register("NullOp", NullOp.class);
+    manager.register("TheodoreTeleop", TheodoreTeleop.class);
   }
 }

@@ -35,7 +35,7 @@ public class TheodoreTeleop extends OpMode { // declares a new opmode. IntelliJ 
         mechanism_b = hardwareMap.dcMotor.get("mech_b");
 
         // reverse one of the motors (because it's a tank drive)
-        drive_left.setDirection(DcMotor.Direction.REVERSE);
+        drive_right.setDirection(DcMotor.Direction.REVERSE);
 
         // reverse one of the mechanism motors (because of the chain configuration on Alec's testing rig).
         // Valid as of Oct 6, 2015. DON'T RUN THIS OPMODE WITHOUT CHECKING THIS! YOU'LL PROBABLY BREAK SOMETHING EXPENSIVE!

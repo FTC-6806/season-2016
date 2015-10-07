@@ -11,4 +11,3 @@ There are SDK docs for a reason. Plus there are tons of online tutorials.
 Due to the shitty way that FIRST packages their SDK, it's not very easy.
 **Do not attempt to update the SDK without help! It's a *very* complicated process!**
 Instead, ask Liam (@ArchimedesPi) to help you.
-

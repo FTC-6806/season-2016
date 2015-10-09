@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.ratchetrobotics.algorithms.ai.ResponseCurve;
-import org.ratchetrobotics.utilities.JoystickScaler;
+import org.ratchetrobotics.algorithms.utilities.JoystickScaler;
 // everything before this line IntelliJ writes out for you automatically as you use stuff.
 
 /**
@@ -22,12 +22,12 @@ public class TheodoreTeleop extends OpMode { // declares a new opmode. IntelliJ 
   private DcMotor mechanism_a;
   private DcMotor mechanism_b;
 
-  private ResponseCurve joystick_scaler;
+  private JoystickScaler joystick_scaler;
 
   @Override
   public void init() {
     // set up the joystick scaler
-    joystick_scaler = JoystickScaler.buildResponseCurve();
+    joystick_scaler = new JoystickScaler();
 
     // here we get a reference to the motor controller called "drive_controller" in the config file
     drive_motor_controller = hardwareMap.dcMotorController.get("drive_controller");
@@ -62,10 +62,10 @@ public class TheodoreTeleop extends OpMode { // declares a new opmode. IntelliJ 
   public void loop() { // this gets run again and again and again
     // and every time around, we grab the stick value, negate them (because they come in with the wrong sign),
     // and then set the power of the drivetrain motors.
-    drive_left.setPower(joystick_scaler.respond(gamepad1.left_stick_y));
-    drive_right.setPower(joystick_scaler.respond(gamepad1.right_stick_y));
+    drive_left.setPower(joystick_scaler.in(gamepad1.left_stick_y));
+    drive_right.setPower(joystick_scaler.in(gamepad1.right_stick_y));
 
-    mechanism_a.setPower(joystick_scaler.respond(gamepad2.left_stick_y));
-    mechanism_b.setPower(joystick_scaler.respond(gamepad2.left_stick_y));
+    mechanism_a.setPower(joystick_scaler.in(gamepad2.left_stick_y));
+    mechanism_b.setPower(joystick_scaler.in(gamepad2.left_stick_y));
   }
 }

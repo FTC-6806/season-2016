@@ -1,4 +1,4 @@
 // FTC Apps
 include (':FtcRobotController')
 // Ratchet Robotics libraries
-include ':algorithms'
+include ':algorithms', ':rrlogic'

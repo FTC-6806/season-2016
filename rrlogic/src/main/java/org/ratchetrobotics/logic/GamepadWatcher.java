@@ -21,7 +21,7 @@ public class GamepadWatcher implements Watcher {
     public void apply(GamepadEventSelector e, Gamepad g);
   }
 
-  private interface GamepadEventSelector {}
+  public interface GamepadEventSelector {}
 
   public static class ButtonEventSelector implements GamepadEventSelector {
     public String button;

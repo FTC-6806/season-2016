@@ -8,14 +8,35 @@ import java.lang.reflect.Field;
  * Created by liam on 12/18/15.
  */
 public class ButtonEventTrigger extends GamepadEventTrigger {
-  String button;
-  GamepadWatcher.EventType eventType;
+  private String button;
+  private EventType eventType;
+
+  // for debouncing
+  private boolean isDebounced;
+  private long lastDebounceTime = 0;
+  private static final long DEBOUNCE_TIME = 50;
 
   private static final float FBUTTON_THRESHOLD = 0.75F; // range is [0..1], unpressed to fully-pressed
 
-  public ButtonEventTrigger(String button, GamepadWatcher.EventType eventType) {
+  public enum EventType {
+    PRESSED, // As soon as pressed
+    RELEASED // As soon as released
+  }
+
+  public ButtonEventTrigger(String button, EventType eventType) {
     this.button = button;
     this.eventType = eventType;
+    this.isDebounced = false;
+  }
+  public ButtonEventTrigger(String button, EventType eventType, boolean debounced) {
+    this.button = button;
+    this.eventType = eventType;
+    this.isDebounced = debounced;
+  }
+
+  public void tick() {
+    super.tick();
+
   }
 
   private boolean reflectButton(GamepadState gs, String button) {
@@ -40,17 +61,23 @@ public class ButtonEventTrigger extends GamepadEventTrigger {
   }
 
   public boolean shouldFire() {
+    if (isDebounced && reflectButton(gamepadState, button) != reflectButton(oldGamepadState, button)) {
+      lastDebounceTime = System.nanoTime();
+    }
+
     switch (this.eventType) {
       case PRESSED:
-        return (reflectButton(gamepadState, button) == true && reflectButton(oldGamepadState, button) == false);
+        if (isDebounced) {
+          return (reflectButton(gamepadState, button) && !reflectButton(oldGamepadState, button)) && (System.nanoTime() - lastDebounceTime > DEBOUNCE_TIME);
+        } else {
+          return (reflectButton(gamepadState, button) && !reflectButton(oldGamepadState, button));
+        }
       case RELEASED:
-        return (reflectButton(gamepadState, button) == false && reflectButton(oldGamepadState, button) == true);
-      case HIT:
-        // TODO: implement
-        return false;
-      case HIT_DEBOUNCED:
-        // TODO: implement
-        return false;
+        if (isDebounced) {
+          return (!reflectButton(gamepadState, button) && reflectButton(oldGamepadState, button)) && (System.nanoTime() - lastDebounceTime > DEBOUNCE_TIME);
+        } else {
+          return (!reflectButton(gamepadState, button) && reflectButton(oldGamepadState, button));
+        }
       default:
         return false;
     }

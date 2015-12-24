@@ -1,21 +1,23 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import android.util.Log;
+import android.widget.Button;
 
+import org.ratchetrobotics.logic.ButtonEventTrigger;
 import org.ratchetrobotics.logic.GamepadWatcher;
-import org.ratchetrobotics.logic.GamepadWatcher.ButtonEventSelector;
-
 
 /**
  * Created by liam on 12/14/15.
  */
 public class RobotTeleop extends RobotAbstractionLayer {
-  boolean a_pressed = false;
+  boolean drivetrain_direction = false;
 
   @Override
   public void init() {
     initializeHardware();
-    watchers.add(new GamepadWatcher(gamepad1, new ButtonEventSelector("a", GamepadWatcher.EventType.PRESSED), (e, g) -> {
-      this.a_pressed = true;
+
+    watchers.add(new GamepadWatcher(gamepad1, new ButtonEventTrigger("a", ButtonEventTrigger.EventType.PRESSED), () -> {
+      Log.d("rr-main", "Button 'A' was pressed on gamepad1");
     }));
   }
 

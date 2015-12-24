@@ -30,6 +30,7 @@ public class RobotAbstractionLayer extends OpMode {
   public void tickWatchers() {
     for (Watcher watcher:
          watchers) {
+      watcher.tick();
       Log.d("robotabstractionlayer", watcher.toString());
     }
   }

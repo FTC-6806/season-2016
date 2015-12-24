@@ -26,7 +26,7 @@ public class ButtonEventTrigger extends GamepadEventTrigger {
   public ButtonEventTrigger(String button, EventType eventType) {
     this.button = button;
     this.eventType = eventType;
-    this.isDebounced = false;
+    this.isDebounced = true; // default to debouncing
   }
   public ButtonEventTrigger(String button, EventType eventType, boolean debounced) {
     this.button = button;

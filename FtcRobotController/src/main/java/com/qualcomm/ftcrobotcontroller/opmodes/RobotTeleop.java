@@ -14,6 +14,14 @@ public class RobotTeleop extends RobotAbstractionLayer {
     onButtonPress(gamepad1, "x", () -> {
       drivetrain_direction = !drivetrain_direction;
     });
+
+    onButtonPress(gamepad1, "dpad_up", () -> {
+      // extend tape measure
+    });
+
+    onButtonPress(gamepad1, "dpad_down", () -> {
+      // retract tape-measure
+    });
   }
 
   @Override

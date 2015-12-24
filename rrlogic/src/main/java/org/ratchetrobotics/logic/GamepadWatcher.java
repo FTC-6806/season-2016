@@ -8,48 +8,27 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 public class GamepadWatcher implements Watcher {
   private GamepadEventCallback callback;
   private Gamepad gamepad;
-  private GamepadEventSelector eventSelector;
+  private GamepadEventTrigger eventTrigger;
 
-  public enum EventType {
-    PRESSED, // As soon as transitioned
-    RELEASED, // As soon as transitioned
-    HIT, // Pressed and then released (debounced)
-    MOVED, // Moved the stick
-  }
 
   public interface GamepadEventCallback {
-    public void apply(GamepadEventSelector e, Gamepad g);
+    void apply();
   }
 
-  public interface GamepadEventSelector {}
-
-  public static class ButtonEventSelector implements GamepadEventSelector {
-    public String button;
-    public EventType eventType;
-
-    public ButtonEventSelector(String button, EventType eventType) {
-      this.button = button;
-      this.eventType = eventType;
-    }
-  }
-
-  public GamepadWatcher(Gamepad gamepad, GamepadEventSelector eventSelector, GamepadEventCallback callback) {
+  public GamepadWatcher(Gamepad gamepad, GamepadEventTrigger eventTrigger, GamepadEventCallback callback) {
     this.callback = callback;
     this.gamepad = gamepad;
-    this.eventSelector = eventSelector;
-  }
-
-  public boolean didEventFire() {
-    return false; // TODO: Implement
+    this.eventTrigger = eventTrigger; this.eventTrigger.attach(gamepad);
   }
 
   public void tick() {
-    if (this.didEventFire()) {
-      this.callback.apply(this.eventSelector, this.gamepad);
+    this.eventTrigger.tick();
+    if (this.eventTrigger.shouldFire()) {
+      this.callback.apply();
     }
   }
 
   public String toString() {
-    return String.format("GamepadWatcher { gamepad.id: %d, event: %s }", this.gamepad.id, this.eventSelector.toString());
+    return String.format("GamepadWatcher { gamepad.id: %d, event: %s }", this.gamepad.id, this.eventTrigger.toString());
   }
 }

@@ -3,7 +3,10 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import android.util.Log;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.ratchetrobotics.logic.ButtonEventTrigger;
+import org.ratchetrobotics.logic.GamepadWatcher;
 import org.ratchetrobotics.logic.Watcher;
 
 import java.util.List;
@@ -16,6 +19,10 @@ public class RobotAbstractionLayer extends OpMode {
 
   public RobotAbstractionLayer() {
     super();
+  }
+
+  public void onButtonPress(Gamepad gamepad, String button, GamepadWatcher.GamepadEventCallback callback) {
+    watchers.add(new GamepadWatcher(gamepad, new ButtonEventTrigger(button, ButtonEventTrigger.EventType.PRESSED), callback));
   }
 
   @Override

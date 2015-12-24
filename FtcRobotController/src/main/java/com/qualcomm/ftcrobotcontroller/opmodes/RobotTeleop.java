@@ -1,7 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import android.util.Log;
-import android.widget.Button;
 
 import org.ratchetrobotics.logic.ButtonEventTrigger;
 import org.ratchetrobotics.logic.GamepadWatcher;

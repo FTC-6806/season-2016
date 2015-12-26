@@ -1,5 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import org.ratchetrobotics.logic.HardwareConstants;
+import org.ratchetrobotics.logic.RobotAbstractionLayer;
 
 /**
  * Created by liam on 12/14/15.
@@ -14,18 +16,19 @@ public class RobotTeleop extends RobotAbstractionLayer {
     onButtonPress(gamepad1, "x", () -> {
       drivetrain_direction = !drivetrain_direction;
     });
-
-    onButtonPress(gamepad2, "dpad_up", () -> {
-      // extend tape measure
-    });
-
-    onButtonPress(gamepad2, "dpad_down", () -> {
-      // retract tape-measure
-    });
   }
 
   @Override
   public void loop() {
     tickWatchers();
+
+    // control winch extension
+    if (gamepad2.dpad_up) {
+      winchMotor.setPower(HardwareConstants.WINCH_SPEED);
+    } else if (gamepad2.dpad_down) {
+      winchMotor.setPower(-HardwareConstants.WINCH_SPEED);
+    } else {
+      winchMotor.setPower(0);
+    }
   }
 }

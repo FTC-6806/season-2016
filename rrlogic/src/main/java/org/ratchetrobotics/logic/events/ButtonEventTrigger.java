@@ -1,4 +1,4 @@
-package org.ratchetrobotics.logic;
+package org.ratchetrobotics.logic.events;
 
 import org.ratchetrobotics.logic.data.GamepadState;
 

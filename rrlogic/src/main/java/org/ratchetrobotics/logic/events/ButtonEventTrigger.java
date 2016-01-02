@@ -1,5 +1,7 @@
 package org.ratchetrobotics.logic.events;
 
+import android.util.Log;
+
 import org.ratchetrobotics.logic.data.GamepadState;
 
 import java.lang.reflect.Field;
@@ -36,7 +38,6 @@ public class ButtonEventTrigger extends GamepadEventTrigger {
 
   public void tick() {
     super.tick();
-
   }
 
   private boolean reflectButton(GamepadState gs, String button) {

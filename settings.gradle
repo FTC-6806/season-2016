@@ -2,3 +2,5 @@
 include (':FtcRobotController')
 // Ratchet Robotics libraries
 include ':algorithms', ':rrlogic'
+// FTCLib
+include ':ftc-library'

@@ -1,5 +1,8 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.lasarobotics.library.controller.ButtonState;
+import com.lasarobotics.library.controller.Controller;
+
 import org.ratchetrobotics.algorithms.utilities.JoystickScaler;
 import org.ratchetrobotics.logic.RobotAbstractionLayer;
 
@@ -7,32 +10,28 @@ import org.ratchetrobotics.logic.RobotAbstractionLayer;
  * Created by liam on 12/14/15.
  */
 public class RobotTeleop extends RobotAbstractionLayer {
-  boolean drivetrain_direction = true;
+  Controller controller1, controller2;
   JoystickScaler joystickScaler = new JoystickScaler();
-  RePassTest rePassTest;
+
+  boolean drivetrain_direction = true;
 
   @Override
   public void init() {
     initializeHardware();
 
-//    onButtonPress(gamepad1, "x", () -> {
-//      drivetrain_direction = !drivetrain_direction;
-//    });
-  }
-
-  @Override
-  public void start() {
-    rePassTest = new RePassTest(gamepad1);
+    controller1 = new Controller(gamepad1);
+    controller2 = new Controller(gamepad2);
   }
 
   @Override
   public void loop() {
-//    tickWatchers();
-    rePassTest.tick();
+    controller1.update(gamepad1); controller2.update(gamepad1);
 
-//    Log.d("repasstest", "x = " + gamepad1.x);
-//    driveLeftMotors.setPower(joystickScaler.in(gamepad1.left_stick_y));
-//    driveRightMotors.setPower(joystickScaler.in(gamepad1.right_stick_y));
+
+    if (controller1.x == ButtonState.PRESSED || controller2.x == ButtonState.PRESSED) {
+      drivetrain_direction = !drivetrain_direction;
+    }
+
     drivetrain.setPower(joystickScaler.in(gamepad1.left_stick_y), joystickScaler.in(gamepad1.right_stick_y), drivetrain_direction);
   }
 }

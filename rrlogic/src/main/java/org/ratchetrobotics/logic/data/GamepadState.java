@@ -22,6 +22,31 @@ public class GamepadState {
    * @param gamepad a Qualcomm Gamepad class.
    */
   public GamepadState(Gamepad gamepad) {
+    this.update(gamepad);
+  }
+
+  public GamepadState(GamepadState gamepadState) {
+    this.left_stick_x = gamepadState.left_stick_x;
+    this.left_stick_y = gamepadState.left_stick_y;
+    this.right_stick_x = gamepadState.right_stick_x;
+    this.right_stick_y = gamepadState.right_stick_y;
+
+    this.dpad_up = gamepadState.dpad_up; this.dpad_down = gamepadState.dpad_down;
+    this.dpad_left = gamepadState.dpad_left; this.dpad_right = gamepadState.dpad_right;
+
+    this.a = gamepadState.a; this.b = gamepadState.b;
+    this.x = gamepadState.x; this.y = gamepadState.y;
+
+    this.guide = gamepadState.guide; this.start = gamepadState.start;
+    this.back = gamepadState.back;
+
+    this.left_bumper = gamepadState.left_bumper; this.right_bumper = gamepadState.right_bumper;
+    this.left_stick_button = gamepadState.left_stick_button; this.right_stick_button = gamepadState.right_stick_button;
+
+    this.left_trigger = gamepadState.left_trigger; this.right_trigger = gamepadState.right_trigger;
+  }
+
+  public void update(Gamepad gamepad) {
     this.left_stick_x = gamepad.left_stick_x;
     this.left_stick_y = gamepad.left_stick_y;
     this.right_stick_x = gamepad.right_stick_x;

@@ -28,15 +28,9 @@ public class RobotAbstractionLayer extends OpMode {
 
   protected TankDrivetrain drivetrain;
 
-  protected DcMotor winchMotor;
-  protected Servo winchRatchetServo, winchAimingServo;
   protected DcMotor driveLeftMotors, driveRightMotors;
 
   public void initializeHardware() {
-//    winchMotor = hardwareMap.dcMotor.get("winchMotor");
-//    winchRatchetServo = hardwareMap.servo.get("winchRatchetServo");
-//    winchAimingServo = hardwareMap.servo.get("winchAimingServo");
-
     driveLeftMotors = hardwareMap.dcMotor.get("driveLeftMotors");
     driveRightMotors = hardwareMap.dcMotor.get("driveRightMotors"); driveRightMotors.setDirection(DcMotor.Direction.REVERSE);
 

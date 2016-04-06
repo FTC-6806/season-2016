@@ -15,6 +15,8 @@ public class RobotTeleop extends RobotAbstractionLayer {
 
   boolean drivetrain_direction = true;
 
+  boolean estop = false;
+
   @Override
   public void init() {
     initializeHardware();
@@ -31,6 +33,15 @@ public class RobotTeleop extends RobotAbstractionLayer {
       drivetrain_direction = !drivetrain_direction;
     }
 
-    drivetrain.setPower(joystickScaler.in(gamepad1.left_stick_y), joystickScaler.in(gamepad1.right_stick_y), drivetrain_direction);
+    if (!estop) {
+      drivetrain.setPower(joystickScaler.in(gamepad1.left_stick_y), joystickScaler.in(gamepad1.right_stick_y), drivetrain_direction);
+    } else {
+      drivetrain.setPower(0.0, 0.0);
+    }
+
+    if (controller2.a == ButtonState.PRESSED || controller2.b == ButtonState.PRESSED
+        || controller2.x == ButtonState.PRESSED || controller2.y == ButtonState.PRESSED) {
+      estop = !estop;
+    }
   }
 }

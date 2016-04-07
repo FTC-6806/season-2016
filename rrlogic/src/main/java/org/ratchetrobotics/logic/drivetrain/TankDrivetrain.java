@@ -43,6 +43,10 @@ public class TankDrivetrain {
   }
 
   public void setPower(double leftPower, double rightPower, boolean direction) {
-    setPower(leftPower * (direction ? 1 : -1), rightPower * (direction ? 1 : -1));
+    if (direction) {
+      setPower(leftPower, rightPower);
+    } else {
+      setPower(-rightPower, -leftPower);
+    }
   }
 }
